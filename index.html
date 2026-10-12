@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f97316">
+<title>REBOOT 30 | 30日間チャレンジ</title>
+<style>
+:root{--bg:#f5f6f8;--card:#fff;--ink:#171923;--muted:#697386;--line:#e5e7eb;--accent:#f97316;--accent2:#ea580c;--soft:#fff1e7;--green:#16835d;--shadow:0 8px 28px rgba(25,32,45,.06)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Noto Sans JP",sans-serif;line-height:1.55}
+button,input,textarea{font:inherit}button{cursor:pointer}
+.wrap{max-width:980px;margin:auto;padding:22px 16px 60px}
+.hero{background:linear-gradient(125deg,#172033,#29344b);color:white;border-radius:24px;padding:28px;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+.hero:after{content:"30";position:absolute;right:10px;bottom:-55px;font-size:210px;font-weight:900;color:rgba(255,255,255,.055);line-height:1}
+.eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#ffbd8b;font-weight:800}
+h1{font-size:clamp(30px,6vw,48px);line-height:1.1;margin:10px 0 12px;letter-spacing:-.04em}.hero p{color:#d5dbea;max-width:580px;margin:0}
+.hero-meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.pill{border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:7px 12px;font-size:13px;background:rgba(255,255,255,.07)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+.stat,.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
+.stat{padding:16px}.stat .label{font-size:12px;color:var(--muted)}.stat strong{display:block;font-size:26px;margin-top:3px;letter-spacing:-.03em}.stat small{color:var(--muted)}
+.panel{padding:20px;margin-top:16px}.panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px}
+h2{font-size:19px;margin:0;letter-spacing:-.02em}h3{font-size:15px;margin:0 0 8px}.muted{color:var(--muted);font-size:13px}
+.progress{height:8px;background:#eceef2;border-radius:99px;overflow:hidden;margin-top:12px}.progress>div{height:100%;background:var(--accent);border-radius:99px;transition:width .2s}
+.tabs{display:flex;gap:8px;margin:18px 0 0;overflow:auto;padding-bottom:2px}.tab{border:1px solid var(--line);border-radius:12px;background:white;color:var(--muted);padding:10px 14px;white-space:nowrap;font-weight:700}.tab.active{background:var(--ink);color:white;border-color:var(--ink)}
+.daynav{display:flex;align-items:center;gap:10px}.iconbtn{width:38px;height:38px;border-radius:11px;border:1px solid var(--line);background:white;font-size:18px}.daytitle{flex:1}.daytitle .date{font-size:12px;color:var(--muted)}.daytitle strong{font-size:19px;display:block}
+.today-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}
+.task{display:flex;gap:11px;align-items:flex-start;padding:12px 0;border-bottom:1px solid #f0f1f4}.task:last-child{border-bottom:0;padding-bottom:0}.task input[type=checkbox]{accent-color:var(--accent);width:19px;height:19px;flex-shrink:0;margin-top:3px}.task label{cursor:pointer;flex:1}.task b{display:block;font-size:14px}.task small{display:block;color:var(--muted);font-size:12px;margin-top:3px}
+.counter{display:flex;align-items:center;gap:12px;margin:12px 0}.counter strong{font-size:28px;min-width:50px;text-align:center}.counter button{border:1px solid var(--line);background:#fff;border-radius:12px;width:42px;height:42px;font-size:22px}.counter input{width:76px;border:1px solid var(--line);border-radius:10px;padding:9px;text-align:center}
+.challenge-box{background:var(--soft);border:1px solid #fed7aa;border-radius:14px;padding:14px}.challenge-box .big{font-size:34px;font-weight:850;line-height:1.1;color:var(--accent2)}.challenge-box .big span{font-size:14px;color:#9a3412;font-weight:700}
+.worktask{margin-top:12px;padding:13px;border:1px solid var(--line);border-radius:13px}.worktask .tag{display:inline-block;font-size:11px;font-weight:800;background:#e9f7f0;color:#126749;border-radius:6px;padding:3px 7px;margin-bottom:7px}.worktask p{margin:0;font-size:14px}
+.note{width:100%;min-height:90px;border:1px solid var(--line);border-radius:12px;padding:12px;resize:vertical;background:#fff;color:var(--ink)}
+.btn{border:0;border-radius:12px;padding:11px 15px;background:var(--accent);color:white;font-weight:800}.btn.secondary{background:#fff;color:var(--ink);border:1px solid var(--line)}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.days-list{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.day-card{border:1px solid var(--line);background:white;border-radius:12px;padding:10px;text-align:left;min-height:78px}.day-card.selected{border:2px solid var(--accent);padding:9px;background:#fff8f2}.day-card.done{background:#eefaf4;border-color:#b9e8d2}.day-card .n{font-size:11px;color:var(--muted)}.day-card strong{display:block;font-size:17px}.day-card small{font-size:11px;color:var(--muted)}
+.rule-list{margin:8px 0 0;padding-left:20px;color:var(--muted);font-size:13px}.rule-list li{margin:5px 0}
+.footer{text-align:center;color:var(--muted);font-size:12px;padding:24px 8px}
+.hidden{display:none!important}
+@media(max-width:680px){.wrap{padding:12px 11px 40px}.hero{padding:23px 20px;border-radius:20px}.stats{gap:8px}.stat{padding:12px}.stat strong{font-size:22px}.today-grid{grid-template-columns:1fr}.panel{padding:16px}.days-list{grid-template-columns:repeat(3,1fr)}.panel-head{align-items:flex-start}.hero:after{font-size:150px;right:-5px;bottom:-36px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Personal challenge · 2026</div>
+    <h1>REBOOT <span style="color:#fb923c">30</span></h1>
+    <p>刺激に流される時間を減らし、毎日の行動とコミュニケーションを積み重ねる30日間。</p>
+    <div class="hero-meta"><span class="pill">10.12 — 11.10</span><span class="pill">毎日のルーチン</span><span class="pill">声掛けチャレンジ</span></div>
+  </header>
+
+  <section class="stats">
+    <div class="stat"><span class="label">チャレンジ達成日</span><strong id="statDays">0 / 30</strong><small>ルーチン＋声掛けを達成</small></div>
+    <div class="stat"><span class="label">今日の声掛け</span><strong id="statPeople">0 <small>人</small></strong><small id="statTarget">目標 10人</small></div>
+    <div class="stat"><span class="label">ルーチン達成率</span><strong id="statRoutine">0%</strong><small>全チェック項目の進捗</small></div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head"><div><h2>30日間の進捗</h2><div class="muted">日付を選ぶと、その日の記録を編集できます。</div></div><strong id="progressText">0%</strong></div>
+    <div class="progress"><div id="overallBar" style="width:0%"></div></div>
+    <div class="days-list" id="daysList" style="margin-top:16px"></div>
+  </section>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="today">今日のチェック</button>
+    <button class="tab" data-tab="plan">30日間の計画</button>
+    <button class="tab" data-tab="guide">ルール・使い方</button>
+  </div>
+
+  <section id="todayView">
+    <div class="panel">
+      <div class="panel-head">
+        <div class="daynav">
+          <button class="iconbtn" id="prevDay" aria-label="前の日">‹</button>
+          <div class="daytitle"><div class="date" id="dateLabel"></div><strong id="dayLabel">1日目</strong></div>
+          <button class="iconbtn" id="nextDay" aria-label="次の日">›</button>
+        </div>
+        <button class="btn secondary" id="goToday">今日へ</button>
+      </div>
+      <div class="today-grid">
+        <div>
+          <h2>毎日のルーチン</h2>
+          <p class="muted">無理なく続けるための最低ライン。筋トレは休養日を含めてOK。</p>
+          <div id="routineList"></div>
+        </div>
+        <div>
+          <h2>日替わりチャレンジ</h2>
+          <p class="muted">声掛け人数を記録。会社課題は出勤日のみ。</p>
+          <div class="challenge-box">
+            <div class="muted" style="color:#9a3412;font-weight:700">今日の声掛け目標</div>
+            <div class="big"><span id="targetNumber">10</span> <span>人</span></div>
+            <div class="counter">
+              <button id="minusPeople" aria-label="人数を減らす">−</button>
+              <strong id="actualPeople">0</strong>
+              <button id="plusPeople" aria-label="人数を増やす">+</button>
+              <input id="peopleInput" type="number" min="0" max="999" aria-label="実際の声掛け人数" value="0">
+            </div>
+            <div id="peopleStatus" class="muted">あと10人で目標達成</div>
+          </div>
+          <div id="workTask" class="worktask"></div>
+          <div class="task" id="challengeCheckWrap">
+            <input type="checkbox" id="challengeDone">
+            <label for="challengeDone"><b>今日のチャレンジを実施した</b><small>目標未達でも、挑戦したらチェックしてOK。</small></label>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:20px">
+        <h3>今日のメモ・気づき</h3>
+        <textarea class="note" id="dailyNote" placeholder="例：声をかける前は緊張したが、まず挨拶できた。"></textarea>
+      </div>
+      <div class="actions">
+        <button class="btn" id="saveDay">記録を保存</button>
+        <button class="btn secondary" id="clearDay">この日の記録をリセット</button>
+      </div>
+      <p class="muted" id="saveStatus" aria-live="polite">変更はこのブラウザ内に自動保存されます。</p>
+    </div>
+  </section>
+
+  <section id="planView" class="hidden">
+    <div class="panel">
+      <div class="panel-head"><h2>30日間のチャレンジ計画</h2><span class="muted">2026年</span></div>
+      <div class="muted">平日は声掛け＋職場課題。土日・祝日は職場課題なし。</div>
+      <div id="planTable" style="overflow-x:auto;margin-top:14px"></div>
+    </div>
+  </section>
+
+  <section id="guideView" class="hidden">
+    <div class="panel">
+      <h2>毎日のルーチン</h2>
+      <div class="muted">各項目の最低ライン。自分の生活に合わせて調整してください。</div>
+      <ol class="rule-list">
+        <li><b>ポルノ断ち・刺激の管理：</b>ポルノを見ない。衝動が来たら端末を置き、10分別の行動をする。自慰を控えるかは自分で選ぶ。</li>
+        <li><b>ワークアウト・身体活動：</b>筋トレ週3〜4回。休養日は散歩やストレッチ。</li>
+        <li><b>サイドビジネス：</b>最低30分。記事・動画・企画など、成果物が残る作業。</li>
+        <li><b>勉強：</b>最低25分。英語・資格・仕事の知識など優先テーマを1つ進める。</li>
+        <li><b>集中時間：</b>起床後と就寝前はYouTube・SNSを避け、娯楽動画は原則見ない。</li>
+        <li><b>睡眠・生活リズム：</b>7〜9時間を目安に睡眠を取り、起床時刻をなるべく固定する。</li>
+        <li><b>振り返り：</b>夜3分。できたこと、誘惑への対応、明日の最重要タスクを各1つ記録。</li>
+      </ol>
+    </div>
+    <div class="panel">
+      <h2>声掛けのルール</h2>
+      <ul class="rule-list">
+        <li>店員への質問、道を尋ねる、店舗で商品について尋ねるなど、自然で相手に負担をかけにくい会話を含める。</li>
+        <li>同じ人への複数回の声掛けは1人として数える。</li>
+        <li>ナンパをする場合は相手の状況と反応を尊重し、会話を望んでいない様子ならすぐに切り上げる。</li>
+        <li>人数達成のために相手を困らせない。声掛け人数だけでなく、相手を尊重できたかも大切にする。</li>
+        <li>未達の日があっても、翌日にノルマを上乗せせず、その日の目標から再開する。</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h2>データのバックアップ</h2>
+      <p class="muted">記録はこのブラウザのローカルストレージに保存されます。ブラウザデータの消去や別端末では失われることがあるため、定期的に書き出してください。</p>
+      <div class="actions"><button class="btn" id="exportData">記録をJSONで書き出す</button><button class="btn secondary" id="importButton">バックアップを読み込む</button><input type="file" id="importFile" accept="application/json" class="hidden"></div>
+      <p class="muted" id="backupStatus"></p>
+    </div>
+  </section>
+  <div class="footer">REBOOT 30 · 完璧さより、続けて戻ってくること。</div>
+</div>
+<script>
+const routineItems = [
+  ["ポルノ断ち・刺激の管理","ポルノを見ない。衝動が来たら端末を置いて10分別の行動へ。"],
+  ["ワークアウト・身体活動","筋トレの日は実施。休養日は散歩・ストレッチでもOK。"],
+  ["サイドビジネス","最低30分。小さくても成果物が残る作業をする。"],
+  ["勉強","最低25分、優先テーマを1つ進める。"],
+  ["集中時間を確保","起床後・就寝前はYouTubeやSNSを避ける。"],
+  ["睡眠・生活リズム","睡眠時間を確保し、起床時刻をなるべく固定する。"],
+  ["1日の振り返り","できたこと・誘惑への対応・明日の最重要タスクを記録。"]
+];
+const targets = [10,10,10,12,12,12,12,15,15,15,15,15,15,15,18,18,18,18,18,18,18,20,20,20,20,20,20,20,25,30];
+const workTasks = [
+ null,"同僚に自分から1回話しかける","同僚に自分から質問する","自分から雑談を始める","自分から報告・相談する",null,null,
+ "同僚に自分から話しかける","仕事の質問をする","雑談を始める","会議で1回発言する","会話を自分から広げる",null,null,
+ "普段話さない同僚に話しかける","自分から質問・相談する","自分の意見を伝える","会議や打ち合わせで発言する","同僚に雑談を始める",null,null,
+ "同僚との雑談を3往復以上続ける",null,"自分の考えを伝える","自分から質問・相談する","同僚との会話を自分から始める",null,null,
+ "同僚2人以上に話しかける","質問・発言・相談を実践する"
+];
+const holidays = new Set([1,23]); // 10/12 and 11/3
+const start = new Date(2026,9,12,12,0,0);
+const dateFmt = new Intl.DateTimeFormat('ja-JP',{month:'long',day:'numeric',weekday:'short'});
+const storageKey = 'reboot30-data-v1';
+let selectedDay = 0;
+let data = loadData();
+function emptyDay(){return {routine:Array(7).fill(false),people:0,challenge:false,note:''}}
+function loadData(){try{return JSON.parse(localStorage.getItem(storageKey))||{}}catch(e){return {}}}
+function dayData(i){if(!data[i])data[i]=emptyDay();if(!Array.isArray(data[i].routine))data[i].routine=Array(7).fill(false);while(data[i].routine.length<7)data[i].routine.push(false);return data[i]}
+function persist(){localStorage.setItem(storageKey,JSON.stringify(data));renderStats();renderDays();document.getElementById('saveStatus').textContent='保存済み · '+new Date().toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'});}
+function dateAt(i){let d=new Date(start);d.setDate(start.getDate()+i);return d}
+function isWeekend(i){let wd=dateAt(i).getDay();return wd===0||wd===6||holidays.has(i)}
+function fmtDate(i){return dateFmt.format(dateAt(i))}
+function allRoutine(d){return d.routine.every(Boolean)}
+function doneDay(i){let d=dayData(i);return allRoutine(d)&&d.challenge}
+function renderStats(){
+ const done=Array.from({length:30},(_,i)=>doneDay(i)).filter(Boolean).length;
+ const routines=Array.from({length:30},(_,i)=>dayData(i).routine.filter(Boolean).length).reduce((a,b)=>a+b,0);
+ const total=30*7;
+ document.getElementById('statDays').textContent=`${done} / 30`;
+ document.getElementById('statPeople').innerHTML=`${dayData(selectedDay).people} <small>人</small>`;
+ document.getElementById('statTarget').textContent=`目標 ${targets[selectedDay]}人`;
+ document.getElementById('statRoutine').textContent=Math.round(routines/total*100)+'%';
+ let pct=Math.round(done/30*100);document.getElementById('progressText').textContent=pct+'%';document.getElementById('overallBar').style.width=pct+'%';
+}
+function renderDays(){
+ const el=document.getElementById('daysList');el.innerHTML='';
+ for(let i=0;i<30;i++){
+  const d=dayData(i),b=document.createElement('button');b.className='day-card'+(i===selectedDay?' selected':'')+(doneDay(i)?' done':'');
+  b.innerHTML=`<span class="n">${i+1}日目</span><strong>${targets[i]}人</strong><small>${fmtDate(i).replace('曜日','')} ${doneDay(i)?'✓':(d.people>0?`${d.people}人済`:'')}</small>`;
+  b.addEventListener('click',()=>{selectedDay=i;renderAll();document.getElementById('todayView').scrollIntoView({behavior:'smooth',block:'start'})});el.appendChild(b);
+ }
+}
+function renderRoutine(){
+ const el=document.getElementById('routineList');el.innerHTML='';
+ const d=dayData(selectedDay);
+ routineItems.forEach((it,j)=>{
+  const row=document.createElement('div');row.className='task';
+  const cb=document.createElement('input');cb.type='checkbox';cb.id='routine'+j;cb.checked=!!d.routine[j];
+  cb.addEventListener('change',()=>{d.routine[j]=cb.checked;persist();renderRoutine()});
+  const label=document.createElement('label');label.htmlFor=cb.id;
+  label.innerHTML=`<b>${it[0]}</b><small>${it[1]}</small>`;
+  row.append(cb,label);el.appendChild(row);
+ });
+}
+function renderToday(){
+ const d=dayData(selectedDay);
+ document.getElementById('dateLabel').textContent=fmtDate(selectedDay);
+ document.getElementById('dayLabel').textContent=`${selectedDay+1}日目`;
+ document.getElementById('targetNumber').textContent=targets[selectedDay];
+ document.getElementById('actualPeople').textContent=d.people;
+ document.getElementById('peopleInput').value=d.people;
+ document.getElementById('challengeDone').checked=d.challenge;
+ document.getElementById('dailyNote').value=d.note||'';
+ const remaining=Math.max(0,targets[selectedDay]-d.people);
+ document.getElementById('peopleStatus').textContent=remaining===0?'目標達成！無理せず相手を尊重して行動できたかも振り返ろう。':`あと${remaining}人で目標達成`;
+ const wt=document.getElementById('workTask');
+ if(workTasks[selectedDay] && !isWeekend(selectedDay)){
+  wt.innerHTML=`<span class="tag">職場コミュニケーション</span><p>${workTasks[selectedDay]}</p>`;
+  document.getElementById('challengeCheckWrap').classList.remove('hidden');
+ }else if(workTasks[selectedDay] && isWeekend(selectedDay)){
+  wt.innerHTML=`<span class="tag">職場課題なし</span><p>今日は声掛けチャレンジに集中。</p>`;
+ }else{
+  wt.innerHTML=`<span class="tag">職場課題なし</span><p>今日は見知らぬ人への声掛けに集中。</p>`;
+ }
+ renderRoutine();
+}
+function renderPlan(){
+ let rows=targets.map((t,i)=>`<tr><td>${i+1}</td><td>${fmtDate(i)}</td><td><b>${t}人</b></td><td>${isWeekend(i)?'<span class="muted">なし</span>':(workTasks[i]||'<span class="muted">自由に実践</span>')}</td><td>${doneDay(i)?'✓':`${dayData(i).people}人`}</td></tr>`).join('');
+ document.getElementById('planTable').innerHTML=`<table style="border-collapse:collapse;width:100%;font-size:13px;min-width:590px"><thead><tr style="text-align:left;background:#f5f6f8"><th style="padding:10px">日</th><th style="padding:10px">日付</th><th style="padding:10px">目標</th><th style="padding:10px">職場課題</th><th style="padding:10px">実績</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+function renderAll(){renderToday();renderStats();renderDays();renderPlan()}
+document.getElementById('prevDay').onclick=()=>{selectedDay=Math.max(0,selectedDay-1);renderAll()};
+document.getElementById('nextDay').onclick=()=>{selectedDay=Math.min(29,selectedDay+1);renderAll()};
+document.getElementById('goToday').onclick=()=>{let now=new Date();let n=Math.floor((new Date(now.getFullYear(),now.getMonth(),now.getDate())-new Date(2026,9,12))/86400000);selectedDay=Math.max(0,Math.min(29,n));renderAll()};
+function setPeople(v){dayData(selectedDay).people=Math.max(0,Math.min(999,Number(v)||0));renderToday();persist()}
+document.getElementById('minusPeople').onclick=()=>setPeople(dayData(selectedDay).people-1);
+document.getElementById('plusPeople').onclick=()=>setPeople(dayData(selectedDay).people+1);
+document.getElementById('peopleInput').addEventListener('change',e=>setPeople(e.target.value));
+document.getElementById('challengeDone').addEventListener('change',e=>{dayData(selectedDay).challenge=e.target.checked;persist();renderDays()});
+document.getElementById('dailyNote').addEventListener('input',e=>{dayData(selectedDay).note=e.target.value;localStorage.setItem(storageKey,JSON.stringify(data))});
+document.getElementById('saveDay').onclick=()=>{dayData(selectedDay).note=document.getElementById('dailyNote').value;persist();renderPlan();document.getElementById('saveStatus').textContent='保存しました。'};
+document.getElementById('clearDay').onclick=()=>{if(confirm('この日の記録をすべてリセットしますか？')){data[selectedDay]=emptyDay();persist();renderAll()}};
+document.querySelectorAll('.tab').forEach(btn=>btn.addEventListener('click',()=>{
+ document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===btn));
+ ['today','plan','guide'].forEach(t=>document.getElementById(t+'View').classList.toggle('hidden',t!==btn.dataset.tab));
+}));
+document.getElementById('exportData').onclick=()=>{
+ const blob=new Blob([JSON.stringify({app:'REBOOT 30',version:1,exportedAt:new Date().toISOString(),data},null,2)],{type:'application/json'});
+ const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='reboot30-backup.json';a.click();URL.revokeObjectURL(a.href);
+ document.getElementById('backupStatus').textContent='バックアップを書き出しました。';
+};
+document.getElementById('importButton').onclick=()=>document.getElementById('importFile').click();
+document.getElementById('importFile').onchange=async e=>{
+ const f=e.target.files[0];if(!f)return;
+ try{const parsed=JSON.parse(await f.text());data=parsed.data||parsed;persist();renderAll();document.getElementById('backupStatus').textContent='バックアップを読み込みました。'}
+ catch(err){document.getElementById('backupStatus').textContent='読み込みに失敗しました。JSONファイルを確認してください。'}
+ e.target.value='';
+};
+renderAll();
+</script>
+</body>
+</html>
