@@ -43,7 +43,7 @@ h2{font-size:19px;margin:0;letter-spacing:-.02em}h3{font-size:15px;margin:0 0 8p
     <div class="eyebrow">Personal challenge · 2026</div>
     <h1>REBOOT <span style="color:#fb923c">30</span></h1>
     <p>刺激に流される時間を減らし、毎日の行動とコミュニケーションを積み重ねる30日間。</p>
-    <div class="hero-meta"><span class="pill">10.12 — 11.10</span><span class="pill">毎日のルーチン</span><span class="pill">声掛けチャレンジ</span></div>
+    <div class="hero-meta"><span class="pill">10.13 — 11.11</span><span class="pill">毎日のルーチン</span><span class="pill">声掛けチャレンジ</span></div>
   </header>
 
   <section class="stats">
@@ -166,16 +166,16 @@ const routineItems = [
 ];
 const targets = [10,10,10,12,12,12,12,15,15,15,15,15,15,15,18,18,18,18,18,18,18,20,20,20,20,20,20,20,25,30];
 const workTasks = [
- null,"同僚に自分から1回話しかける","同僚に自分から質問する","自分から雑談を始める","自分から報告・相談する",null,null,
+ "同僚に自分から1回話しかける","同僚に自分から質問する","自分から雑談を始める","自分から報告・相談する",null,null,
  "同僚に自分から話しかける","仕事の質問をする","雑談を始める","会議で1回発言する","会話を自分から広げる",null,null,
  "普段話さない同僚に話しかける","自分から質問・相談する","自分の意見を伝える","会議や打ち合わせで発言する","同僚に雑談を始める",null,null,
  "同僚との雑談を3往復以上続ける",null,"自分の考えを伝える","自分から質問・相談する","同僚との会話を自分から始める",null,null,
- "同僚2人以上に話しかける","質問・発言・相談を実践する"
+ "同僚2人以上に話しかける","質問・発言・相談を実践する","自分から質問・発言・相談を実践する"
 ];
-const holidays = new Set([1,23]); // 10/12 and 11/3
-const start = new Date(2026,9,12,12,0,0);
+const holidays = new Set([21]); // 11/3文化の日
+const start = new Date(2026,9,13,12,0,0);
 const dateFmt = new Intl.DateTimeFormat('ja-JP',{month:'long',day:'numeric',weekday:'short'});
-const storageKey = 'reboot30-data-v1';
+const storageKey = 'reboot30-data-start-2026-10-13-v1';
 let selectedDay = 0;
 let data = loadData();
 function emptyDay(){return {routine:Array(7).fill(false),people:0,challenge:false,note:''}}
@@ -246,7 +246,7 @@ function renderPlan(){
 function renderAll(){renderToday();renderStats();renderDays();renderPlan()}
 document.getElementById('prevDay').onclick=()=>{selectedDay=Math.max(0,selectedDay-1);renderAll()};
 document.getElementById('nextDay').onclick=()=>{selectedDay=Math.min(29,selectedDay+1);renderAll()};
-document.getElementById('goToday').onclick=()=>{let now=new Date();let n=Math.floor((new Date(now.getFullYear(),now.getMonth(),now.getDate())-new Date(2026,9,12))/86400000);selectedDay=Math.max(0,Math.min(29,n));renderAll()};
+document.getElementById('goToday').onclick=()=>{let now=new Date();let n=Math.floor((new Date(now.getFullYear(),now.getMonth(),now.getDate())-new Date(2026,9,13))/86400000);selectedDay=Math.max(0,Math.min(29,n));renderAll()};
 function setPeople(v){dayData(selectedDay).people=Math.max(0,Math.min(999,Number(v)||0));renderToday();persist()}
 document.getElementById('minusPeople').onclick=()=>setPeople(dayData(selectedDay).people-1);
 document.getElementById('plusPeople').onclick=()=>setPeople(dayData(selectedDay).people+1);
